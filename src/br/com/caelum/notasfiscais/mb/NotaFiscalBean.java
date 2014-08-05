@@ -8,9 +8,11 @@ import br.com.caelum.notasfiscais.dao.ProdutoDao;
 import br.com.caelum.notasfiscais.modelo.Item;
 import br.com.caelum.notasfiscais.modelo.NotaFiscal;
 import br.com.caelum.notasfiscais.modelo.Produto;
+import br.com.caelum.notasfiscais.tx.Transactional;
 
 @Named
 @javax.faces.view.ViewScoped
+@Transactional
 public class NotaFiscalBean {
 
 	private NotaFiscal notaFiscal = new NotaFiscal();
@@ -23,6 +25,7 @@ public class NotaFiscalBean {
 	@Inject
 	private ProdutoDao produtoDao;
 	
+	@Transactional
 	public void gravar() {
 		this.notaFiscalDao.adiciona(notaFiscal);
 		this.notaFiscal = new NotaFiscal();

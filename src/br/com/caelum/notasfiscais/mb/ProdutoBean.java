@@ -2,14 +2,19 @@ package br.com.caelum.notasfiscais.mb;
 
 import java.util.List;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import br.com.caelum.notasfiscais.dao.ProdutoDao;
 import br.com.caelum.notasfiscais.modelo.Produto;
+import br.com.caelum.notasfiscais.tx.Transactional;
 
-@javax.faces.bean.ManagedBean
+@RequestScoped
+@Named
+@Transactional
 public class ProdutoBean {
 
 	@Inject
@@ -49,6 +54,7 @@ public class ProdutoBean {
 		}
 	}
 	
+	@Transactional
 	public String grava() {
 		System.out.println("passou no grava");
 		if(produto.getId() == null){
@@ -81,9 +87,11 @@ public class ProdutoBean {
 	
 	public Float getTotal(){
 		Float total = 0f;
-		for (Produto produto : produtos) {
-			if(produto.getPreco() != null) {
-				total += produto.getPreco().floatValue();
+		if(produtos != null) {
+			for (Produto produto : produtos) {
+				if(produto.getPreco() != null) {
+					total += produto.getPreco().floatValue();
+				}
 			}
 		}
 		return total;
