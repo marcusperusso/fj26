@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
 	  xmlns:h="http://java.sun.com/jsf/html" 
 	  xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
       
 	<ui:composition template="/_template.xhtml">
 		<ui:define name="corpo">		
@@ -15,10 +16,7 @@
 					<h:inputText value="#{notaFiscalBean.notaFiscal.cnpj}"/>
 					
 					<h:outputLabel value="Data:"/>
-					<h:inputText value="#{notaFiscalBean.notaFiscal.data.time}">
-						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
-					</h:inputText>
-					
+					<p:calendar value="#{notaFiscalBean.notaFiscal.data.time}" pattern="dd/MM/yyyy"/>					
 				</fieldset>
 				
 				<fieldset>
