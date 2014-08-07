@@ -12,50 +12,47 @@
 				<fieldset>
 					<legend>Dados da nota</legend>
 					
-					<h:outputLabel value="CNPJ do Cliente:"/>
-					<h:inputText value="#{notaFiscalBean.notaFiscal.cnpj}"/>
+					<p:outputLabel value="CNPJ do Cliente:"/>
+					<p:inputMask value="#{notaFiscalBean.notaFiscal.cnpj}" mask="99.999.999/9999-99"/>
 					
-					<h:outputLabel value="Data:"/>
+					<p:outputLabel value="Data:"/>
 					<p:calendar value="#{notaFiscalBean.notaFiscal.data.time}" pattern="dd/MM/yyyy"/>					
 				</fieldset>
 				
 				<fieldset>
 					<legend>Dados do item</legend>
 				
-					<h:outputLabel value="Produto:"/>
-					<h:selectOneMenu value="#{notaFiscalBean.idProduto}">
-						<f:selectItems value="#{produtoBean.produtos}" var="produto" itemValue="#{produto.id}" itemLabel="#{produto.nome }"/>
-					</h:selectOneMenu>
-					
-					<h:outputLabel value="Quantidade:"/>
-					<h:inputText value="#{notaFiscalBean.item.quantidade}" style="float:left; margin-right: 5px;"/>
+					<p:outputLabel value="Produto:" style="float:left;"/>
+					<p:selectOneMenu id="idProduto" value="#{notaFiscalBean.idProduto}">
+            			<f:selectItems value="#{produtoBean.produtos}" var="produto" itemLabel="#{produto.nome}" itemValue="#{produto.id}" />
+            		</p:selectOneMenu>
+					<br/>
+					<p:outputLabel value="Quantidade:" style="float:left;"/>
+					<p:inputText value="#{notaFiscalBean.item.quantidade}" style="float:left; margin-right: 5px;"/>
 					
 					<h:commandButton value="Adicionar Item" action="#{notaFiscalBean.guardaItem}"/>
 				</fieldset>
 				
 				<h2>Itens da Nota Fiscal</h2>
-				<h:dataTable value="#{notaFiscalBean.notaFiscal.itens}" var="item" styleClass="dados" rowClasses="impar,par">
-					<h:column>
-						<f:facet name="header">Produto</f:facet>
-						#{item.produto.nome}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Valor Unitário</f:facet>
+				<p:dataTable value="#{notaFiscalBean.notaFiscal.itens}" var="item" styleClass="dados" rowClasses="impar,par"
+				emptyMessage="Nenhum Item adicionado" paginator="true" rows="5">
+					<p:column headerText="Produto">
+						<p:outputLabel value="#{item.produto.nome}"/>
+					</p:column>
+					<p:column headerText="Valor Unitário">
 						<h:outputText value="#{item.valorUnitario}">
 							<f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
 						</h:outputText>
-					</h:column>
-					<h:column>
-						<f:facet name="header">Quantidade</f:facet>
-						#{item.quantidade}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Total</f:facet>
+					</p:column>
+					<p:column headerText="Quantidade">
+						<p:outputLabel value="#{item.quantidade}"/>
+					</p:column>
+					<p:column headerText="Total">
 						<h:outputText value="#{item.total}">
 							<f:convertNumber type="currency" currencySymbol="R$" locale="pt_BR" />
 						</h:outputText>
-					</h:column>
-				</h:dataTable>
+					</p:column>
+				</p:dataTable>
 				<h:commandButton value="Gravar Nota Fiscal" action="#{notaFiscalBean.gravar}"/>
 			</h:form>
 		</ui:define>

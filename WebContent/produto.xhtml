@@ -42,41 +42,38 @@
 				<h:outputText value="Nenhum registro encontrado." rendered="#{empty produtoBean.produtos}"/>
 				
 				<h2>Listagem de produtos</h2>
-				<h:dataTable value="#{produtoBean.produtos}" var="produto" binding="#{table}" rendered="#{not empty produtoBean.produtos}"
-				styleClass="dados" rowClasses="impar,par">
-					<h:column>
-						<f:facet name="header">Nr</f:facet>
-						#{table.rowIndex + 1}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Nome</f:facet>
-						#{produto.nome}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Descrição</f:facet>
-						#{produto.descricao}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Preço(R$)</f:facet>
-						<h:outputText value="#{produto.preco}"><f:convertNumber pattern="#,##0.00"/></h:outputText>
-					</h:column>
-					<h:column>
-						<f:facet name="header">Ações</f:facet>
+				<p:dataTable value="#{produtoBean.produtos}" var="produto" binding="#{table}" rendered="#{not empty produtoBean.produtos}"
+				styleClass="dados" rowClasses="impar,par" >
+					<p:column headerText="Nr">
+						<p:outputLabel value="#{table.rowIndex + 1}"/>
+					</p:column>
+					<p:column headerText="Nome">
+						<p:outputLabel value="#{produto.nome}"/>
+					</p:column>
+					<p:column headerText="Descrição">
+						<p:outputLabel value="#{produto.descricao}"/>
+					</p:column>
+					<p:column headerText="Preço(R$)">
+						<p:outputLabel value="#{produto.preco}" >
+							<f:convertNumber pattern="#,##0.00"/>
+						</p:outputLabel>
+					</p:column>
+					<p:column headerText="Ações">
 						<h:commandLink id="botaoRemover" action="#{produtoBean.remove(produto)}" value="Remover">
 							<f:ajax render=":listaForm"/>
 						</h:commandLink>
 						 | 
 						<h:commandLink value="Alterar"><f:setPropertyActionListener value="#{produto}" target="#{produtoBean.produto}"/>
 						</h:commandLink>
-					</h:column>
-				</h:dataTable>
+					</p:column>
+				</p:dataTable>
 				<div>
 					<div style="float:left; margin-right: 5px;">Qtd produtos:</div>
-					<div><h4><b><h:outputText value="#{produtoBean.produtos.size()}"/></b></h4></div> 
+					<div><h4><b><p:outputLabel value="#{produtoBean.produtos.size()}"/></b></h4></div> 
 				</div>
 				<div>
 					<div style="float:left; ; margin-right: 5px;">Total: </div>
-					<div><h4><b>R$<h:outputText value="#{produtoBean.total}"><f:convertNumber pattern="#,##0.00"/></h:outputText></b></h4></div>
+					<div><h4><b>R$<p:outputLabel value="#{produtoBean.total}"><f:convertNumber pattern="#,##0.00"/></p:outputLabel></b></h4></div>
 				</div>
 			</h:form>
 		</ui:define>
